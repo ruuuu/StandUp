@@ -1,0 +1,15 @@
+/* базовые стили */
+
+html{
+      box-sizing: border-box;
+}
+
+*, *:after, *:before{
+      box-sizing: inherit;
+}
+
+body{
+      min-width: 320px;
+      min-height: 100vh;  /*  высота на весь экран */
+      font-family: Onest, sans-serif;
+}

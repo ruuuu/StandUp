@@ -1,0 +1,56 @@
+.booking {
+
+      &__container {
+      }
+
+      &__title {
+      }
+
+      &__form {
+      }
+
+      &__fieldset {
+      }
+
+      &__fieldset--user-info {
+      }
+
+      &__legend {
+      }
+
+      &__group-info {
+      }
+
+      &__input {
+      }
+
+      &__input--fullname {
+      }
+
+      &__input--phone {
+      }
+
+      &__input--ticket {
+      }
+
+      &__fieldset--comedian {
+      }
+
+      &__comedian-list {
+      }
+
+      &__comedian {
+      }
+
+      &__select {
+      }
+
+      &__hall {
+      }
+
+      &__button {
+      }
+
+      &__button--submit {
+      }
+}
