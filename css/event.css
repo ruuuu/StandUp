@@ -1,29 +1,83 @@
 .event {
-
-      &__info {
-      }
-
-      &__info-item {
-      }
-
-      &__info-item--day {
-      }
-
-      &__info-number {
-      }
-
-      &__info-item--hall {
-      }
-
-      &__info-item--duration {
-      }
-
-      &__info-item--comedians {
-      }
-
-      &__button {
-      }
-
-      &__button--reserve {
-      }
+     
+      width: 100%; /* не 100 vw, иначе скролл гориз не учитывается */
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      justify-content: center;
+      background-color: #000;
+      background-image: url('../img/bg.jpg');
+      background-size: cover;  /* чтоб  на весь экран картинка растянулась */
+      background-position: center;
+      color: #fff;
+      /* display: none; */
 }
+
+
+.event__title {
+      margin-bottom: 62px;
+      font-size: 100px;
+      font-weight: 800;
+      line-height: 1.2;
+}
+
+
+.event__info {
+      display: flex;
+      gap: 80px;
+      align-items: center;
+      margin-bottom: 62px;       
+}
+
+
+.event__info-item {
+      display: flex;
+      align-items: flex-end;
+      gap: 8px;
+      font-size: 30px;
+      line-height: 2;
+}
+
+
+.event__info-number {
+      font-size: 80px;
+      font-weight: 800;
+      line-height: 1.2;
+}
+
+
+.event__info-item--day {
+      }
+.event__info-item--hall {
+      }
+
+.event__info-item--duration {
+      }
+
+.event__info-item--comedians {
+      }
+
+
+.event__button {
+      font-size: 24px;
+      line-height: 1.4; 
+}
+
+
+.event__button--reserve{
+      margin-bottom: 24px;
+      padding: 16px 36px;
+      border-radius: 36px;
+      background-color: #FFC119;
+      color: #1A1A1A;
+}
+
+
+.event__button--edit {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 18px;
+}
+
