@@ -3,12 +3,15 @@
       min-height: 100vh;
       display: flex;
       align-items: center;
+      padding: 50px 0;
       color: #1a1a1a;
+      background-color: #EBECF1;
 }
 
 
 .booking__container {
       max-width: 1440px;
+      width: 100%;
       margin: 0 auto;
       padding: 0 80px; 
 }
@@ -32,7 +35,6 @@
 
 
 .booking__fieldset--user-info {
-
       margin-bottom: 50px;
 }
 
@@ -56,10 +58,38 @@
 .booking__input {
       display: block;
       width: 100%;      
-      max-width: 380px;
+      max-width: 380px; /*ширина поля*/
       height: 44px;
+      padding: 10px 16px; 
+      color: #1a1a1a;
+      border: 1px solid transparent;
+      border-radius: 8px;
+      background-color: #fff;
+      line-height: 1.4;
 }
 
+
+.booking__input::placeholder{
+      color: #BABABA;
+}
+
+.booking__input:hover{
+      background-color: #F9F9F9;   
+}
+
+.booking__input:focus{
+      border-color: #BCBCBC;
+      outline: none;
+}
+
+.booking__input--valid{
+      border-color: #00992B;
+
+}
+
+.booking__input--invalid{
+      border-color: #900;
+}
 
 .booking__input--fullname {
       }
@@ -88,25 +118,45 @@
 .booking__comedian {
       display: flex;
       align-items: center;
+      gap: 8px;
 }
 
 
 .booking__select {
-      }
-
-
-.booking__select--comedian{
-      margin-right: 8px;
+      width: 100%;
+      height: 44px;
+      padding: 0 16px;
+      font-size: 18px;
+      line-height: 1.4;
+      color: #1a1a1a;
+      border: 1px solid transparent;
+      border-radius: 8px;
+      background-color: #fff;
 }
 
 
-.booking__select--chield{
-      margin-right: 18px;     
+.booking__select--comedian{
+      max-width: 380px;
+      
+}
+
+
+.booking__select--time{
+      margin-right: 18px;  
+      max-width: 183px;   
 }      
 
 
 .booking__hall {
-      }
+      padding-right: 32px;
+      background-image: url(../img/gg_qr.svg);
+      background-position: right;
+      background-size: 24px 24px;
+      background-repeat: no-repeat;
+      white-space: nowrap;  /* текст не будет переносится */
+      font-size: 18px;
+      line-height: 1.4;
+}
 
 
 .booking__button {
@@ -118,3 +168,49 @@
     
 }
 
+
+@media (max-width: 1024px) {
+      .booking__container {
+            padding: 0 60px; 
+      }
+
+      .booking__title{
+            margin-bottom: 40px;
+            font-size: 32px;
+      } 
+
+      .booking__fieldset--user-info {
+            margin-bottom: 40px;
+      }
+
+      .booking__fieldset--comedian {
+            margin-bottom: 82px;
+      }
+}
+
+@media (max-width: 768px) {
+
+      .booking__group-info{
+            flex-direction: column;
+      } 
+
+      .booking__input{
+            max-width: none;
+      }  
+}
+
+
+@media (max-width: 680px) {
+      .booking__container {
+            padding: 0 16px; 
+      }
+
+      .booking__title{
+            margin-bottom: 32px;
+            font-size: 24px;
+      } 
+
+      .booking__comedian{
+            flex-wrap: wrap;
+      }
+}

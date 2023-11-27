@@ -1,5 +1,6 @@
 @import "normalize.css";     /* установили плагин:  npm i normalize.css -S, установится из папки node_modules */
 @import "css/fonts.css"; 
+@import "tom-select/dist/css/tom-select.default";  /* относиельно папки node_modules */
 @import "css/base.css"; 
 @import "css/event.css"; 
 @import "css/booking.css"; 

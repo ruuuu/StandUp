@@ -11,12 +11,13 @@
       background-size: cover;  /* чтоб  на весь экран картинка растянулась */
       background-position: center;
       color: #fff;
+      padding: 80px 36px 80px;
       /* display: none; */
 }
 
 
 .event__title {
-      margin-bottom: 62px;
+      margin-bottom: 50px;
       font-size: 100px;
       font-weight: 800;
       line-height: 1.2;
@@ -32,15 +33,13 @@
 
 
 .event__info-item {
-      display: flex;
-      align-items: flex-end;
-      gap: 8px;
       font-size: 30px;
-      line-height: 2;
+      line-height: 1.2;
 }
 
 
 .event__info-number {
+      margin-right: 8px;
       font-size: 80px;
       font-weight: 800;
       line-height: 1.2;
@@ -81,3 +80,54 @@
       font-size: 18px;
 }
 
+
+@media (max-width: 1024px) {
+      .event__title{
+            margin-bottom: 40px;
+            font-size: 70px;
+      } 
+
+      .event__info {
+            gap: 50px;
+            margin-bottom: 45px;       
+      }
+      
+      
+      .event__info-item {
+            font-size: 30px;
+            line-height: 2;
+      }
+      
+      
+      .event__info-number {
+            font-size: 50px; 
+      }
+
+      .event__button--reserve{
+            font-size: 18px;
+            margin-bottom: 20px;
+      }
+}
+
+
+@media (max-width: 680px) {
+      .event{
+            padding: 80px 16px 60px;
+      }
+
+      .event__title{
+            margin-bottom: 10px;
+            font-size: 38px;
+      } 
+
+      .event__info{
+            display: grid;
+            grid-template-columns: max-content max-content;  /* ширина колонки будеи занитмать максимум воможное место*/ 
+            gap: 10px;
+            margin-bottom: 30px;
+      }
+
+      .event__button--reserve{
+            margin-top: auto;
+      }
+}
