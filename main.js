@@ -1,8 +1,17 @@
 import './style.css';
 import TomSelect from 'tom-select';
+import { Notification } from './scripts/notification';
+import Inputmask from "inputmask";  // для валидации полей формы  https://github.com/RobinHerbots/Inputmask
+import JustValidate from 'just-validate';  // для валидации полей формы https://just-validate.dev/docs/intro
+
+
 
 
 const MAX_COMEDIANS = 6;
+
+
+const notification =  Notification.getInstance();
+
 
 const bookingComedianList = document.querySelector('.booking__comedian-list');
 const bookingForm = document.querySelector('.booking__form');
@@ -51,7 +60,7 @@ const createComedianBlock = (comedians) => {    // comedians = [{},{},{}]
       bookingTomSelectComedian.on('change', (id) => {  // навешиваем событие на первsй select Комедиантов, когда выбираем элемнет из списка, вызовется коллбэк
             
             bookingTomSelectTime.enable(); // делаем активным
-            bookingTomSelectComedian.blur();
+            bookingTomSelectComedian.blur(); // блюрит
             bookingTomSelectTime.blur();
             
             const { performances } = comedians.find((item) => item.id === id);  // find вернет { id, comedian, perfomanse: [{time, hall}, {time, hall}] } и вытащит из него свойсов perfomanse(деструктризация)
@@ -132,39 +141,94 @@ const init = async() => {
       const comedianBlock = createComedianBlock(comedians); // li
       bookingComedianList.append(comedianBlock);
 
+      const validate = new JustValidate(bookingForm, {
+            errorFieldCssClass: 'booking__input--invalid',  // наши классы указываем из booking.css
+            successFieldCssClass: 'booking__input--valid',
+      });
+
+
+      const bookingInputPhone = document.querySelector('.booking__input--phone');
+      const bookingInputTicket = document.querySelector('.booking__input--ticket');
+
+      const phoneMask = new Inputmask('+7(999)-999-9999');
+      phoneMask.mask(bookingInputPhone);
+
+
+      const ticketMask = new Inputmask('999999999');
+      ticketMask.mask(bookingInputTicket);
+
+      // 
+      validate      
+            .addField('.booking__input--fullname', [
+                  {
+                        rule: 'required',
+                        errorMessage: 'Имя обязательно для заполнения'
+                  },
+                  {
+                        validator(value) {
+                            return  value === '20' ? false : true 
+                        }   
+                  },
+                  
+            ])
+            .addField(bookingInputPhone, [
+                  {
+                        rule: 'required',
+                        errorMessage: 'Телефон обязательно для заполнения'
+                  },
+                  {
+                        validator(value) {
+                              return true;
+                        }, 
+                        errorMessage: 'Некорректный телефон'
+                  },
+            ])
+            .addField(bookingInputTicket, [
+                  {
+                        rule: 'required',
+                        errorMessage: 'Номер билета  обязательно для заполнения'
+                  },
+                  {
+                        validator(value) {
+                             return true;
+                        } ,
+                        errorMessage: 'Неверный номер билета'
+                  },
+            ])
+
+
+
 
       bookingForm.addEventListener('submit', (evt) => {
             evt.preventDefault();               // чтобы полсе отправки формы, страница не перезагружалась
             const data = { 
-                  booking: []    // нач значение
+                  booking: []    // нач значение, потом будет ["fullName": "Rufina",  "phone": "7654",  "ticketNumber": "8888888",  "booking": [{comedoan: "10", time: "10:45"},{},{}]} ]
             };      
 
             const times = new Set();  // коллекция (хранит уникальные значения)
 
             //new FormData(bookingForm) // считыывает данные полей, хранит ввиде объекта
-            new FormData(bookingForm).forEach((value, field) => {  // (Иванова, fullName) (897654, phone) (324, ticketNumber)
+            new FormData(bookingForm).forEach((value, field) => {  
                   //console.log(value, field);
-                  if(field === 'booking'){
-                        //comedian, time это значения атрибутов name у select
-                        const [comedianId, time] = value.split(",");  // value = 3,11:45, это строка, метод split() возвращает массив элементов
-                        if(comedianId && time){
-                              data.booking.push({ comedianId, time });
-                              times.add(time);                    // добавляем значение в коллекцию
+                  if(field === 'booking'){                        // на сервер отправляем метдов POST {"fullName": "Rufina",  "phone": "7654",  "ticketNumber": "8888888",  "booking": [{comedoan: "10", time: "10:45"},{},{}]} 
+                        //comedian, time это значения атрибутов name у <select>
+                        const [comedian, time] = value.split(",");                        // value = 3,11:45, это строка, метод split() возвращает массив элементов
+                        if(comedian && time){
+                              data.booking.push({ comedian, time });
+                              times.add(time);                                            // добавляем значение в коллекцию
                         }
-                        else{
-                              data[field] = value;  
-                        }
-
-                        console.log('data ', data)
-                        if(times.size !== data.booking.length){  // если в одно время на двух комиков запсиываемся
-                              console.log('нельзя быть в одно и то же время на двух комиках')
-                        }
-
-
-
-
                   }
-            }) 
+                  else{
+                        data[field] = value;  
+                  }
+
+                  if(times.size !== data.booking.length){  // если в одно время на двух комиков запсиываемся
+                        notification.show('нельзя в одно время записаться на двух комиков', false);   
+                  }
+            });
+            console.log('data ', data);   // data = [{"fullName": "Rufina",  "phone": "7654",  "ticketNumber": "8888888",  "booking": [{comedoan: "10", time: "10:45"},{},{}]} ] - тело мтеода POSTT
+            
+            
       });
 
 };
@@ -172,17 +236,3 @@ const init = async() => {
 
 
 init();
-
-//  <li class="booking__comedian">
-//    <select class="booking__select booking__select--comedian" name="comedian">
-//          <option value="1"> Юлия Ахмедова </option>     в value указывается значения котрые пойдут на сервер 
-//          <option value="2"> Слава Коммисаренко </option>
-//    </select>
-
-//    <select class="booking__select booking__select--time" name="time">
-//          <option value="11:00"> 11:00 </option>
-//          <option value="10:00"> 10:00 </option>
-//    </select>
-
-//    <button class="booking__hall"> Зал 1 </button>
-// </li> 

@@ -25,15 +25,6 @@
 }
 
 
-.booking__form {
-      }
-
-
-.booking__fieldset {
-      }
-
-
-
 .booking__fieldset--user-info {
       margin-bottom: 50px;
 }
@@ -62,7 +53,7 @@
       height: 44px;
       padding: 10px 16px; 
       color: #1a1a1a;
-      border: 1px solid transparent;
+      border: 2px solid transparent;
       border-radius: 8px;
       background-color: #fff;
       line-height: 1.4;
@@ -84,23 +75,11 @@
 
 .booking__input--valid{
       border-color: #00992B;
-
 }
 
 .booking__input--invalid{
       border-color: #900;
 }
-
-.booking__input--fullname {
-      }
-
-
-.booking__input--phone {
-      }
-
-
-.booking__input--ticket {
-      }
 
 
 .booking__fieldset--comedian {
