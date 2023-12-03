@@ -59,16 +59,16 @@ const createComedianBlock = (comedians) => {    // comedians = [{},{},{}]
       //                                  id comedian
       bookingTomSelectComedian.on('change', (id) => {  // навешиваем событие на первsй select Комедиантов, когда выбираем элемнет из списка, вызовется коллбэк
             
-            bookingTomSelectTime.enable(); // делаем активным
-            bookingTomSelectComedian.blur(); // блюрит
+            bookingTomSelectTime.enable(); // метод Tomselet, делаем активным
+            bookingTomSelectComedian.blur(); // метод Tomselet,блюрит
             bookingTomSelectTime.blur();
             
             const { performances } = comedians.find((item) => item.id === id);  // find вернет { id, comedian, perfomanse: [{time, hall}, {time, hall}] } и вытащит из него свойсов perfomanse(деструктризация)
 
-            bookingTomSelectTime.clear();  // очищаем выбранное значение на преддущем шаге
-            bookingTomSelectTime.clearOptions(); // очищает опции от предыдущего значения
+            bookingTomSelectTime.clear();  // метод Tomselet, очищаем выбранное значение на преддущем шаге
+            bookingTomSelectTime.clearOptions(); // метод Tomselet,очищает опции от предыдущего значения
             
-            bookingTomSelectTime.addOptions(
+            bookingTomSelectTime.addOptions(  // метод Tomselet
                   performances.map((item) => {   // [{value, item}, {value, item}]
                         return { value: item.time, text: item.time }
                   })
@@ -85,7 +85,7 @@ const createComedianBlock = (comedians) => {    // comedians = [{},{},{}]
                   return;  // выход из обрботчика
             }
 
-            const idComedian = bookingTomSelectComedian.getValue();  // возвращает выбарнне значение из спика
+            const idComedian = bookingTomSelectComedian.getValue();  // метод Tomselet, возвращает выбарнне значение из спика
             console.log('idComedian ', idComedian)
 
             const { performances } = comedians.find((item) => item.id === idComedian);   // [ {time, hall}, {time, hall} ]
@@ -141,25 +141,23 @@ const init = async() => {
       const comedianBlock = createComedianBlock(comedians); // li
       bookingComedianList.append(comedianBlock);
 
+      // для валидации используем библиотеку just-validate:
       const validate = new JustValidate(bookingForm, {
             errorFieldCssClass: 'booking__input--invalid',  // наши классы указываем из booking.css
             successFieldCssClass: 'booking__input--valid',
       });
 
-
+      const bookingInputFullname = document.querySelector('.booking__input--fullname');
       const bookingInputPhone = document.querySelector('.booking__input--phone');
       const bookingInputTicket = document.querySelector('.booking__input--ticket');
 
-      const phoneMask = new Inputmask('+7(999)-999-9999');
-      phoneMask.mask(bookingInputPhone);
-
-
-      const ticketMask = new Inputmask('999999999');
-      ticketMask.mask(bookingInputTicket);
+      new Inputmask('+7(999)-999-9999').mask(bookingInputPhone);
+      new Inputmask('999999999').mask(bookingInputTicket);
+     
 
       // 
       validate      
-            .addField('.booking__input--fullname', [
+            .addField(bookingInputFullname, [
                   {
                         rule: 'required',
                         errorMessage: 'Имя обязательно для заполнения'
@@ -177,9 +175,10 @@ const init = async() => {
                         errorMessage: 'Телефон обязательно для заполнения'
                   },
                   {
-                        validator(value) {
-                              return true;
-                        }, 
+                        validator() {
+                              const phone = bookingInputPhone.inputmask.unmaskedvalue();
+                              return phone.length === 10 && Boolean(Number(phone)); // проверяем что поле состит из 10 символов и является числом
+                          } ,
                         errorMessage: 'Некорректный телефон'
                   },
             ])
@@ -189,17 +188,36 @@ const init = async() => {
                         errorMessage: 'Номер билета  обязательно для заполнения'
                   },
                   {
-                        validator(value) {
-                             return true;
-                        } ,
+                        validator() {
+                            const ticket = bookingInputTicket.inputmask.unmaskedvalue();
+                            return ticket.length === 8 && Boolean(Number(ticket)); // проверяем что поле состит из 8 символов и является числом
+                        },
                         errorMessage: 'Неверный номер билета'
                   },
             ])
+            .onFail((fields) => {                            // если хотя бы какотйо поле невадилно, то вызовется переданныя фукнция, fields =  {2: {elem: input.booking__input.booking__input--phone.booking__input--invalid, rules: Array(2), isValid: false, touched: false, config: undefined, …}, 3:{}, {}}
+                  
+                  let errorMessage = '';
+                  console.log('fileds ', fields)
+                  
+                  for (const key in fields) {
+                        if (!Object.hasOwnProperty.call(fields, key)) {              // провереям что поле относится к этому объекту
+                              continue;
+                        }
+
+                        const element = fields[key];
+                        
+                        if(!element.isValid){ // если не валидно
+                              errorMessage += `${element.errorMessage}, `; 
+                        }
+                  }
+
+                  notification.show(errorMessage.slice(0, -2), false);  // отрезаем полсдение два символа(запятая и пробел)
+            })
 
 
-
-
-      bookingForm.addEventListener('submit', (evt) => {
+      // отправка данных формы:
+      bookingForm.addEventListener('submit', (evt) => {  
             evt.preventDefault();               // чтобы полсе отправки формы, страница не перезагружалась
             const data = { 
                   booking: []    // нач значение, потом будет ["fullName": "Rufina",  "phone": "7654",  "ticketNumber": "8888888",  "booking": [{comedoan: "10", time: "10:45"},{},{}]} ]
