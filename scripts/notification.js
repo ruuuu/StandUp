@@ -13,6 +13,7 @@ export class Notification {  // sigletone(нужен для опимизации
    }
 
 
+
    static getInstance (){
 
       if (!Notification.instance){  
@@ -25,6 +26,7 @@ export class Notification {  // sigletone(нужен для опимизации
 
 
    show(message, isSuccess){
+
       const notification = this.createNotification(message, isSuccess);
       document.body.append(notification);
       this.animationNotification(notification, true);  // true значит, что надо показать notification
@@ -37,7 +39,10 @@ export class Notification {  // sigletone(нужен для опимизации
    }
 
 
+
+   
    createNotification(message, isSuccess){
+      
       const notification = document.createElement('div');
       notification.className = `notification ${isSuccess ? "notification--success" : "notification--error"}`;
       notification.textContent = message;
