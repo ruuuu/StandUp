@@ -1,6 +1,8 @@
 import TomSelect from 'tom-select';
 const MAX_COMEDIANS = 6;
 
+
+
 export const createComedianBlock = (comedians, bookingComedianList) => {    // comedians = [{},{},{}]
 
    const bookingComedian = document.createElement('li');  // li
@@ -23,7 +25,7 @@ export const createComedianBlock = (comedians, bookingComedianList) => {    // c
 
    bookingComedian.append(bookingSelectComedian, bookingSelectTime, inputHidden); 
 
-   // создаем список:
+   // создаем список комедиантов:
    const bookingTomSelectComedian = new TomSelect(bookingSelectComedian, {
          hideSelected: true,      //  скрывает в спсике  уже выбранные элементы
          placeholder: 'Выбрать комика',
@@ -32,7 +34,7 @@ export const createComedianBlock = (comedians, bookingComedianList) => {    // c
          })
    });
    
-   // создаем список:
+   // создаем список времен:
    const bookingTomSelectTime = new TomSelect(bookingSelectTime, {
          hideSelected: true,      //  скрывает уже выбарнные элементы
          placeholder: 'Выбрать время',
@@ -66,7 +68,7 @@ export const createComedianBlock = (comedians, bookingComedianList) => {    // c
 
 
    //                              time of comedian
-   bookingTomSelectTime.on('change', (time) => {  // когад выбирем время из списка Времен, вызовется коллбэк
+   bookingTomSelectTime.on('change', (time) => {  // навешиваем событие на список времен, когад выбирем время из списка Времен, вызовется коллбэк
          
          if(!time){
                return;  // выход из обрботчика
@@ -81,7 +83,7 @@ export const createComedianBlock = (comedians, bookingComedianList) => {    // c
                return (item.time === time); 
          });
 
-         inputHidden.value = `${idComedian},${time}`;    // для qr  нужно будет это поле
+         inputHidden.value = `${idComedian},${time}`;    // для qr кода нужно будет это поле
          bookingHall.textContent = hall;
 
          bookingComedian.append(bookingHall);
@@ -96,7 +98,7 @@ export const createComedianBlock = (comedians, bookingComedianList) => {    // c
                bookingComedianList.append(nextComedianBlock);
          }
 
-         bookingTomSelectTime.off('change', createNextBookingComedian);
+         bookingTomSelectTime.off('change', createNextBookingComedian);  // деактививруем событие change(встроенный метод TomSelect)
    };
 
    bookingTomSelectTime.on('change', createNextBookingComedian);

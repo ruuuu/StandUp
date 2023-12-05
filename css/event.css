@@ -12,7 +12,18 @@
       background-position: center;
       color: #fff;
       padding: 80px 36px 80px;
+      opacity: 1; /* отображается */
+      visibility: visible;
+      /* transition: opacity 0.5s, visibility 0.5s;    */
       /* display: none; */
+}
+
+
+.event__hidden{
+      opacity: 0;  /* не отображается */ 
+      visibility: hidden;  /* эмент скрывается но свое пространство занимает */
+      position: absolute;
+      width: 100%;
 }
 
 
@@ -46,21 +57,17 @@
 }
 
 
-.event__info-item--day {
-      }
-.event__info-item--hall {
-      }
-
-.event__info-item--duration {
-      }
-
-.event__info-item--comedians {
-      }
-
-
 .event__button {
+      opacity: 1;       /* отображается */
+      visibility: visible;
       font-size: 24px;
       line-height: 1.4; 
+}
+
+
+.event__button--hidden{
+      opacity: 0;             /* скрывает */
+      visibility: hidden;  /* элемент скрывается, но занимает место */
 }
 
 

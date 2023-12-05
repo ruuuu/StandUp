@@ -3,12 +3,8 @@ import { Notification } from './scripts/notification';
 import { createComedianBlock } from './scripts/comedians';
 import { intiForm } from './scripts/form';
 import { getComedians } from './scripts/api';
+import { initChangeSection } from './scripts/changeSection';
 
-
-
-
-
-// const notification =  Notification.getInstance();
 
 
 
@@ -20,21 +16,27 @@ const init = async() => {
       const bookingComedianList = document.querySelector('.booking__comedian-list');
       const bookingForm = document.querySelector('.booking__form');
 
+      const event = document.querySelector('.event');
+      const booking = document.querySelector('.booking');
+      const eventButtonReserve = document.querySelector('.event__button--reserve');
+      const eventButtonEdit = document.querySelector('.event__button--edit');
+      const bookingTitle = document.querySelector('.booking__title');
+      const countComedians = document.querySelector('.event__info-item--comedians .event__info-number');
  
-      intiForm(bookingForm, bookingInputFullname, bookingInputPhone, bookingInputTicket); // отправка данных формы
 
       const comedians = await getComedians();  // await  тк решаем когда разрешится промис
       
-      if(!comedians){
-            return;  // выход из метода
-      }
-      console.log('comedians ', comedians);
+      if(comedians){
+            console.log('comedians ', comedians);
       
-      const countComedians = document.querySelector('.event__info-item--comedians .event__info-number');
-      countComedians.textContent = comedians.length;
+            countComedians.textContent = comedians.length;
+      
+            const changeSection = initChangeSection(event, booking, eventButtonReserve, eventButtonEdit, bookingTitle, bookingForm, comedians, bookingComedianList ); // вернет фукнуию
 
-      const comedianBlock = createComedianBlock(comedians, bookingComedianList); // li
-      bookingComedianList.append(comedianBlock);     
+            console.log('changeSection ', changeSection)
+            intiForm(bookingForm, bookingInputFullname, bookingInputPhone, bookingInputTicket, changeSection, bookingComedianList); // отправка данных формы
+      }
+      
 };
 
 

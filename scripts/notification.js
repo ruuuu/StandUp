@@ -65,7 +65,7 @@ export class Notification {  // sigletone(нужен для опимизации
             notification.classList.remove('notification--show');
             setTimeout(resolve, 500);
          }
-      })
+      });
    }
 
 
