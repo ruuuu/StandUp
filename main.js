@@ -1,14 +1,20 @@
 import './style.css';
-import { Notification } from './scripts/notification';
-import { createComedianBlock } from './scripts/comedians';
 import { intiForm } from './scripts/form';
 import { getComedians } from './scripts/api';
 import { initChangeSection } from './scripts/changeSection';
-
+import { initQrPage } from './scripts/qrPage';
 
 
 
 const init = async() => {
+
+      //console.log('window.location.pathname ', window.location.pathname)  // выдаст  урл текущей раницы
+      //console.log('window.location ', window.location)
+      if(window.location.pathname.endsWith('qr.html')){
+            console.log(' находимся на станице qr.html ')
+            initQrPage();
+            return;  // выход из метода
+      }
 
       const bookingInputFullname = document.querySelector('.booking__input--fullname');
       const bookingInputPhone = document.querySelector('.booking__input--phone');

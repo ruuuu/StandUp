@@ -148,9 +148,17 @@
 }
 
 
-.booking__button--submit {
-    
+.booking__client-info{
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));  /* мин 280px, max  сколкьо влезет */
+      margin-bottom: 30px;
 }
+ 
+
+.bookig__title-qr{
+      grid-column: 1 / -1;
+}
+
 
 
 @media (max-width: 1024px) {

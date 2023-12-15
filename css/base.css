@@ -70,7 +70,7 @@ fieldset{
       border: 0;
 }
 
-/* сбрасываем стили tonselect: */
+/* сбрасываем стили библиотеки tonselect: */
 .ts-dropdown, .ts-control, .ts-control input{
       padding: 10px 16px 8px;
       font-size: 18px;

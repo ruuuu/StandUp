@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stand Up</title>
+    <script type="module" src="/main.js"></script>
+    <!-- <script type="module" src="/scripts/qrPage.js"></script> -->
+  </head>
+
+  <!--  эта стрнаица  урл http://localhost/qr.html?t=43534543 бдует оптравляться пользователю, и будет запсукаться qrPage.js -->
+  <body>
+   <section class="booking">
+      <div class="booking__container">
+        <h2 class="booking__title"> Ваша бронь </h2>
+
+       <div class="booking__client-info">
+         <h3 class="booking__title-qr"> Информация о клиенте </h3>
+       </div>
+
+       <div class="booking__perfomance">
+         <h3 class="bookig__title-qr"> Список комиков на котрый записался клиент </h3>
+       </div>
+      </div>
+    </section>
+
+
+    <div class="modal"><!-- мод окно -->
+      <div class="modal__content">
+         <canvas id="qrCanvas"></canvas>
+         <button class="modal__close"> &#10006; </button>
+      </div>
+    </div>
+  </body>
+</html>

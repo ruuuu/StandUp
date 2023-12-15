@@ -5,7 +5,7 @@ export class Notification {  // sigletone(нужен для опимизации
    
    constructor(){                // это метод котрый запускается при создании класса
       if(Notification.instance){
-         return Notification.instance;
+         return Notification.instance;  // {}
       }
       
       this.timeout = 3000;          // сколкь секунд отобрадать notification
@@ -67,8 +67,6 @@ export class Notification {  // sigletone(нужен для опимизации
          }
       });
    }
-
-
 
 }
 

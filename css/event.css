@@ -1,5 +1,4 @@
 .event {
-     
       width: 100%; /* не 100 vw, иначе скролл гориз не учитывается */
       min-height: 100vh;
       display: flex;
