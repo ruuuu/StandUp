@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Stand Up</title>
     <script type="module" src="/main.js"></script>
-    <!-- <script type="module" src="/scripts/qrPage.js"></script> -->
   </head>
 
   <!--  эта стрнаица  урл http://localhost/qr.html?t=43534543 бдует оптравляться пользователю, и будет запсукаться qrPage.js -->
@@ -21,12 +20,13 @@
 
        <div class="booking__perfomance">
          <h3 class="bookig__title-qr"> Список комиков на котрый записался клиент </h3>
+         <!-- будет список комиков на котрый записался клиент -->
        </div>
       </div>
     </section>
 
 
-    <div class="modal"><!-- мод окно -->
+    <div class="modal"><!-- мод окно бдует открываться по нажатию на qr code -->
       <div class="modal__content">
          <canvas id="qrCanvas"></canvas>
          <button class="modal__close"> &#10006; </button>
