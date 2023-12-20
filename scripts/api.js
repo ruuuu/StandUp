@@ -1,6 +1,6 @@
 import { Notification } from "./notification";
 
-const API_URL = 'https://grizzled-glorious-flight.glitch.me'; //    http://localhost:4024
+const API_URL = 'https://royal-scarce-barge.glitch.me'; //    http://localhost:4024  https://grizzled-glorious-flight.glitch.me
 
 
 export  const getComedians = async() => {
